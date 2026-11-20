@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Grand Déménagement – maquette de landing page (cas Lead Acquisition B2C)</title>
+<style>
+  :root{
+    --ink:#10261c; --green:#1f6b45; --green-d:#134a2f; --mint:#e6f2ea; --sand:#f7f4ec;
+    --line:#d7e3da; --muted:#4f6359; --accent:#f2c14e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--sand);line-height:1.5}
+  .mock{position:sticky;top:0;z-index:10;background:#2b2b2b;color:#fff;font-size:13px;text-align:center;padding:8px 16px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+  .logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--green-d)}
+  .logo span{font-weight:400;color:var(--muted);font-size:13px;margin-left:8px}
+  .pill{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff}
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:40px 0 64px}
+  .eyebrow{display:inline-block;background:var(--mint);color:var(--green-d);font-weight:600;font-size:13px;padding:6px 12px;border-radius:999px;margin-bottom:18px}
+  h1{font-size:48px;line-height:1.05;letter-spacing:-.03em;margin-bottom:18px}
+  h1 em{font-style:normal;color:var(--green)}
+  .lead{font-size:19px;color:var(--muted);margin-bottom:26px;max-width:540px}
+  .checks{list-style:none;display:grid;gap:8px;margin-bottom:8px}
+  .checks li::before{content:"✓";color:var(--green);font-weight:800;margin-right:10px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(16,38,28,.06)}
+  .card h2{font-size:20px;margin-bottom:4px}
+  .card p.small{font-size:14px;color:var(--muted);margin-bottom:18px}
+  label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px}
+  input,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:#fff}
+  .btn{display:block;width:100%;margin-top:18px;padding:14px;border:0;border-radius:10px;background:var(--green);color:#fff;font-weight:700;font-size:16px;cursor:pointer}
+  .btn:hover{background:var(--green-d)}
+  .fine{font-size:12px;color:var(--muted);margin-top:10px}
+  .done{display:none}
+  .done .place{font-size:44px;font-weight:800;color:var(--green);letter-spacing:-.02em}
+  .ref{display:flex;gap:8px;margin-top:10px}
+  .ref input{font-size:13px}
+  .ref button{padding:0 14px;border-radius:10px;border:1px solid var(--green);background:#fff;color:var(--green);font-weight:700;cursor:pointer}
+  .counter{background:var(--green-d);color:#fff;border-radius:18px;padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px}
+  .counter b{display:block;font-size:30px;letter-spacing:-.02em}
+  .counter span{font-size:14px;opacity:.85}
+  section{margin-bottom:72px}
+  section h2{font-size:32px;letter-spacing:-.02em;margin-bottom:10px}
+  section .sub{color:var(--muted);margin-bottom:28px;max-width:640px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+  .step .n{width:32px;height:32px;border-radius:50%;background:var(--mint);color:var(--green-d);display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+  .step h3{font-size:17px;margin-bottom:6px}
+  .step p{font-size:15px;color:var(--muted)}
+  .compare{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+  .compare th,.compare td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+  .compare th{background:var(--mint);font-size:14px}
+  .compare td:nth-child(2){color:var(--green-d);font-weight:600}
+  .sim{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px}
+  .sim a{display:inline-block;margin-top:14px;padding:12px 18px;border-radius:10px;background:var(--accent);color:var(--ink);font-weight:700;text-decoration:none}
+  .sim .big{font-size:56px;font-weight:800;color:var(--green-d);letter-spacing:-.03em;line-height:1}
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+  summary{font-weight:600;cursor:pointer}
+  details p{margin-top:10px;color:var(--muted);font-size:15px}
+  footer{border-top:1px solid var(--line);padding:24px 0 48px;font-size:12px;color:var(--muted)}
+  @media (max-width:860px){
+    .hero,.sim{grid-template-columns:1fr}
+    .steps,.counter{grid-template-columns:1fr}
+    h1{font-size:36px}
+  }
+</style>
+</head>
+<body>
+<div class="mock">Maquette réalisée par Amine Merzouk pour le cas « Lead Acquisition B2C ». Page non officielle : aucune donnée n'est envoyée, les chiffres du compteur sont fictifs.</div>
+
+<div class="wrap">
+  <header>
+    <div class="logo">Le Grand Déménagement <span>proposition d'Amine Merzouk pour Green-Got · maquette</span></div>
+    <div class="pill">Ouverture dans <b id="days">90</b> jours</div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Le Grand Déménagement</div>
+      <h1>Ton argent déménage.<br><em>On porte les cartons.</em></h1>
+      <p class="lead">Le nouveau compte Green-Got est gratuit, avec ton propre IBAN et le virement instantané. Et on s'occupe de transférer ton salaire, tes prélèvements et tes virements depuis ton ancienne banque.</p>
+      <ul class="checks">
+        <li>Compte gratuit, carte virtuelle, tirelires rémunérées</li>
+        <li>Changement de banque pris en charge, sans démarche de ta part</li>
+        <li>Zéro financement de l'expansion fossile</li>
+      </ul>
+    </div>
+
+    <div class="card" id="form-card">
+      <div id="form">
+        <h2>Réserve ta place pour le jour J</h2>
+        <p class="small">Les comptes ouvrent par vagues. Chaque ami parrainé te fait gagner 100 places.</p>
+        <label for="email">Ton email</label>
+        <input id="email" type="email" placeholder="prenom@exemple.fr">
+        <label for="bank">Ta banque principale aujourd'hui</label>
+        <select id="bank">
+          <option value="">Choisir…</option>
+          <option>BNP Paribas</option><option>Société Générale</option><option>Crédit Agricole / LCL</option>
+          <option>Banque Populaire / Caisse d'Épargne</option><option>Crédit Mutuel / CIC</option>
+          <option>La Banque Postale</option><option>Banque en ligne / néobanque</option><option>Autre</option>
+        </select>
+        <label for="move">Tu veux nous confier</label>
+        <select id="move">
+          <option>Tout : salaire, prélèvements, épargne</option>
+          <option>Mon salaire d'abord</option>
+          <option>Je veux d'abord tester en compte secondaire</option>
+        </select>
+        <button class="btn" onclick="join()">Je réserve ma place (démo)</button>
+        <p class="fine">Ta banque actuelle nous sert à préparer ton changement de banque. Aucun spam, désinscription en un clic.</p>
+      </div>
+      <div class="done" id="done">
+        <h2>C'est noté.</h2>
+        <p class="small">Ta place dans la file d'attente :</p>
+        <div class="place" id="place">#0</div>
+        <p class="small" style="margin-top:12px">Partage ton lien : chaque ami inscrit te fait avancer de 100 places, et vous déménagez ensemble le jour J.</p>
+        <div class="ref"><input id="reflink" readonly><button onclick="copyRef()">Copier</button></div>
+        <p class="fine" id="copied"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter">
+    <div><b id="c1">12 480</b><span>personnes inscrites pour déménager</span></div>
+    <div><b id="c2">38,6 M€</b><span>que leurs propriétaires veulent sortir de leur banque actuelle</span></div>
+    <div><b>Jour J</b><span>tout le monde déménage le même jour</span></div>
+  </div>
+
+  <section>
+    <h2>Changer de banque, en trois étapes</h2>
+    <p class="sub">Beaucoup de gens veulent quitter leur banque mais n'osent pas, par peur de perdre un prélèvement ou un virement en route. On a construit le parcours pour que ça n'arrive pas.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Tu ouvres ton compte</h3><p>En quelques minutes depuis l'appli. Ton IBAN est disponible tout de suite.</p></div>
+      <div class="step"><div class="n">2</div><h3>Tu signes le mandat de mobilité</h3><p>C'est un service gratuit prévu par la loi. On contacte ta banque, ton employeur et tes créanciers à ta place.</p></div>
+      <div class="step"><div class="n">3</div><h3>On te dit quand c'est fait</h3><p>Tu suis chaque prélèvement transféré dans l'appli. Ton ancien compte peut rester ouvert le temps que tu veux.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Le même confort qu'une néobanque. Pas le même usage de ton argent.</h2>
+    <p class="sub">Le compte a tout ce que tu attends d'une banque mobile. La différence, c'est ce que ton argent finance.</p>
+    <table class="compare">
+      <tr><th></th><th>Nouveau compte Green-Got</th><th>Ta banque actuelle (souvent)</th></tr>
+      <tr><td>Prix du compte</td><td>Gratuit</td><td>Frais de tenue de compte</td></tr>
+      <tr><td>IBAN, carte virtuelle, virement instantané</td><td>Oui</td><td>Selon la banque</td></tr>
+      <tr><td>Changement de banque</td><td>Pris en charge de A à Z</td><td>À faire soi-même</td></tr>
+      <tr><td>Financement de l'expansion fossile</td><td>Exclu sur tous les produits</td><td>À vérifier</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <div class="sim">
+      <div>
+        <h2>Et ton argent, il finance quoi aujourd'hui ?</h2>
+        <p class="sub" style="margin-bottom:0">Choisis ta banque et ton montant : on te montre l'ordre de grandeur des émissions liées à ce que ton argent finance, d'après les estimations publiées par Oxfam France et Carbone 4.</p>
+        <a href="simulateur-impact.html">Faire le calcul en 20 secondes</a> <a href="https://docs.google.com/document/d/1_RfmlnECSHF2pQiQ3xEPs0tumbhON8Fm8MTp-ArPbhM/edit" style="background:#fff;border:1px solid #1f6b45;color:#1f6b45">Lire le cas complet</a>
+      </div>
+      <div style="text-align:center">
+        <div class="big">≈ 3,3 t</div>
+        <p class="sub" style="margin:8px auto 0">de CO₂e par an pour 5 000 € déposés à la Société Générale, selon l'estimation d'Oxfam reprise par le gouvernement</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Questions fréquentes</h2>
+    <details><summary>Est-ce que je dois fermer mon ancien compte ?</summary><p>Non. Tu peux garder ton ancien compte le temps de vérifier que tout est bien passé, puis le fermer depuis l'appli quand tu veux.</p></details>
+    <details><summary>Mon argent est-il protégé ?</summary><p>Oui. Les fonds sont cantonnés auprès d'un établissement partenaire, conformément aux règles des établissements de paiement. Le détail sera publié au lancement.</p></details>
+    <details><summary>Pourquoi des vagues d'ouverture ?</summary><p>Pour que chaque changement de banque soit suivi correctement. Les inscrits et leurs filleuls ouvrent en premier.</p></details>
+  </section>
+
+  <footer>
+    Maquette non officielle réalisée dans le cadre d'un cas de recrutement. Chiffre d'exemple : 5 000 € d'épargne correspondraient à 1,77 tCO₂e à La Banque Postale et 3,27 tCO₂e à la Société Générale, selon l'estimation Oxfam citée dans la réponse du gouvernement à la question écrite n° 11040 (Assemblée nationale, 16e législature). Ces estimations sont des ordres de grandeur dont la méthode est discutée par les banques ; tout chiffre publié doit être validé par la conformité.
+  </footer>
+</div>
+
+<script>
+  // Compte à rebours fictif vers J0 (+90 jours)
+  document.getElementById('days').textContent = 90;
+  function join(){
+    var e = document.getElementById('email').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){ document.getElementById('email').focus(); document.getElementById('email').style.borderColor='#c0392b'; return; }
+    var place = 12481 + Math.floor(Math.random()*40);
+    document.getElementById('place').textContent = '#' + place.toLocaleString('fr-FR');
+    var code = e.split('@')[0].replace(/[^a-z0-9]/gi,'').slice(0,8).toLowerCase() || 'ami';
+    document.getElementById('reflink').value = 'exemple.fr/demenagement?parrain=' + code;
+    document.getElementById('form').style.display='none';
+    document.getElementById('done').style.display='block';
+  }
+  function copyRef(){
+    var r = document.getElementById('reflink');
+    r.select();
+    try{ navigator.clipboard.writeText(r.value); document.getElementById('copied').textContent='Lien copié.'; }
+    catch(err){ document.getElementById('copied').textContent='Sélectionne le lien pour le copier.'; }
+  }
+</script>
+</body>
+</html>

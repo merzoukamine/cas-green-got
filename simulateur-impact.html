@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ce que ton argent finance – simulateur (maquette, cas Lead Acquisition B2C)</title>
+<style>
+  :root{--ink:#10261c;--green:#1f6b45;--green-d:#134a2f;--mint:#e6f2ea;--sand:#f7f4ec;--line:#d7e3da;--muted:#4f6359;--warn:#b5532f}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--sand);color:var(--ink);line-height:1.5}
+  .mock{position:sticky;top:0;z-index:10;background:#2b2b2b;color:#fff;font-size:13px;text-align:center;padding:8px 16px}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 24px 56px}
+  .eyebrow{display:inline-block;background:var(--mint);color:var(--green-d);font-weight:600;font-size:13px;padding:6px 12px;border-radius:999px;margin-bottom:16px}
+  h1{font-size:38px;line-height:1.1;letter-spacing:-.03em;margin-bottom:12px}
+  .lead{color:var(--muted);font-size:17px;margin-bottom:28px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(16,38,28,.06)}
+  label{display:block;font-weight:600;font-size:14px;margin-bottom:8px}
+  .banks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:22px}
+  .banks button{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:15px;cursor:pointer;text-align:left}
+  .banks button.on{border-color:var(--green);background:var(--mint);font-weight:700}
+  .amount{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+  .amount output{font-size:28px;font-weight:800;letter-spacing:-.02em}
+  input[type=range]{width:100%;accent-color:var(--green)}
+  .res{margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
+  .res .big{font-size:56px;font-weight:800;letter-spacing:-.03em;color:var(--warn);line-height:1}
+  .res p{color:var(--muted);margin-top:8px}
+  .bar{height:14px;border-radius:999px;background:var(--mint);margin:18px 0 6px;overflow:hidden}
+  .bar div{height:100%;background:var(--warn);width:0;transition:width .4s}
+  .legend{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+  .cta{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .cta a,.cta button{padding:13px 18px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;border:0}
+  .cta a{background:var(--green);color:#fff}
+  .cta button{background:#fff;border:1px solid var(--green);color:var(--green)}
+  .note{font-size:12px;color:var(--muted);margin-top:28px}
+  .note b{color:var(--ink)}
+  #shared{font-size:13px;color:var(--green);margin-top:8px}
+  @media (max-width:600px){h1{font-size:30px}.banks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="mock">Maquette réalisée par Amine Merzouk pour le cas « Lead Acquisition B2C ». Outil non officiel, aucune donnée n'est envoyée.</div>
+<div class="wrap">
+  <div class="eyebrow">Simulateur d'impact</div>
+  <h1>Ce que ton argent finance pendant que tu dors</h1>
+  <p class="lead">Ton argent ne reste pas immobile à la banque : elle s'en sert pour financer des entreprises et des projets. Voici l'ordre de grandeur des émissions associées, d'après les estimations publiées par Oxfam France avec Carbone 4.</p>
+
+  <div class="card">
+    <label>Ta banque principale</label>
+    <div class="banks" id="banks">
+      <button data-k="0.654">Société Générale</button>
+      <button data-k="0.600" class="on">BNP Paribas</button>
+      <button data-k="0.354">La Banque Postale</button>
+      <button data-k="other">Autre grande banque française</button>
+    </div>
+
+    <label for="amt">Ce que tu as sur tes comptes et livrets dans cette banque</label>
+    <div class="amount"><output id="amtOut">5 000 €</output></div>
+    <input id="amt" type="range" min="500" max="50000" step="500" value="5000">
+
+    <div class="res">
+      <div class="big" id="t">3,0 t</div>
+      <p id="sentence">de CO₂e par an sont associées à ce que finance cet argent.</p>
+      <div class="bar"><div id="bar"></div></div>
+      <div class="legend"><span>0</span><span id="ref">Empreinte annuelle moyenne d'un Français : environ 8 t (ADEME)</span></div>
+      <p id="compare"></p>
+      <div class="cta">
+        <a href="index.html">Déménager mon argent le jour J</a>
+        <button onclick="share()">Partager mon résultat</button>
+      </div>
+      <div id="shared"></div>
+    </div>
+  </div>
+
+  <p class="note"><b>D'où viennent les chiffres.</b> Estimations par euro déposé : Société Générale 3,27 tCO₂e et La Banque Postale 1,77 tCO₂e pour 5 000 € (chiffres Oxfam cités dans la réponse du gouvernement à la question écrite n° 11040, Assemblée nationale) ; BNP Paribas 12 t pour 20 000 € (Oxfam France, support « Affaire BNP », 2022). « Autre grande banque » affiche la fourchette entre la valeur la plus basse et la plus haute publiées. Empreinte moyenne d'un Français : environ 8 tCO₂e par an selon l'ADEME (2022). Ce sont des ordres de grandeur, dont la méthode est contestée par les banques ; avant toute diffusion, la formulation et les sources doivent être validées par la conformité et l'équipe impact.</p>
+</div>
+
+<script>
+  var k = 0.600, other = false;
+  var fmt = function(n){ return n.toLocaleString('fr-FR',{maximumFractionDigits:1, minimumFractionDigits:1}); };
+  function render(){
+    var a = +document.getElementById('amt').value;
+    document.getElementById('amtOut').textContent = a.toLocaleString('fr-FR') + ' €';
+    var t, txt;
+    if(other){
+      var lo = a*0.354/1000, hi = a*0.654/1000;
+      t = hi; txt = 'entre ' + fmt(lo) + ' et ' + fmt(hi) + ' t';
+    } else { t = a*k/1000; txt = fmt(t) + ' t'; }
+    document.getElementById('t').textContent = txt;
+    document.getElementById('bar').style.width = Math.min(100, t/8*100) + '%';
+    var pct = Math.round(t/8*100);
+    document.getElementById('compare').textContent = pct >= 100
+      ? 'Soit plus que ton empreinte personnelle moyenne sur une année entière.'
+      : 'Soit environ ' + pct + ' % de l\'empreinte annuelle moyenne d\'un Français, sans rien changer à ta vie.';
+  }
+  document.querySelectorAll('#banks button').forEach(function(b){
+    b.onclick = function(){
+      document.querySelectorAll('#banks button').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');
+      other = b.dataset.k === 'other';
+      if(!other) k = +b.dataset.k;
+      render();
+    };
+  });
+  document.getElementById('amt').oninput = render;
+  function share(){
+    var msg = 'Mon argent à la banque serait associé à ' + document.getElementById('t').textContent + ' de CO₂e par an. Je déménage le jour J, tu viens ?';
+    try{ navigator.clipboard.writeText(msg); document.getElementById('shared').textContent = 'Texte copié, prêt à coller.'; }
+    catch(e){ document.getElementById('shared').textContent = msg; }
+  }
+  render();
+</script>
+</body>
+</html>
